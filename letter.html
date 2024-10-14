@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>untoldcoding</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=VT323"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <style>
+    :root {
+  --theme-color: #285685;
+  --font-color: #ffc765;
+  --shade1: rgba(242, 38, 19, 0.5);
+  --shade2: rgba(0, 255, 255, 0.5);
+}
+
+body {
+  background-image: url(Snapchat-585918403.jpg);
+  background-repeat: no-repeat;
+  background-size: cover; /* Ensures the image covers the entire background */
+  background-position: center; /* Centers the image */
+  background-attachment: fixed; /* Optional: keeps the background fixed during scroll */
+  background-color: black; /* Fallback color */
+  font-family: Chaucer;
+  color: var(--font-color);
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Full height of viewport */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+
+.textCont {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 2vw; /* Responsive font size */
+  padding: 15px;
+  color: #000000;
+  margin: 10% 5%; /* Use margin for spacing */
+  width: 90%; /* Full width with some margin */
+  max-width: 800px; /* Maximum width for larger screens */
+  height: auto; /* Automatic height */
+  text-align: center; /* Center text */
+}
+
+div.textCont::after {
+  content: "|";
+}
+
+@keyframes blinky {
+  0% {
+    opacity: 0;
+  }
+  49.9% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  99.9% {
+    opacity: 1;
+  }
+}
+
+footer {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 100;
+}
+
+footer > a {
+  background-color: transparent;
+  color: var(--font-color);
+  font-weight: bold;
+  font-family: "Megrim";
+  font-size: 110%;
+  text-decoration: none;
+  padding: 5px 20px;
+  border: 3px solid var(--font-color);
+  transition: color 0.5s linear, box-shadow 0.5s ease-in;
+}
+
+.song {
+  display: flex;
+  align-items: center;
+  font-size: 1.1em;
+  position: absolute;
+  right: 5%;
+  bottom: 10%; /* Adjusted for better positioning */
+}
+
+.pause {
+  cursor: pointer;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .textCont {
+    font-size: 4vw; /* Adjust font size for smaller screens */
+    padding: 10px; /* Less padding */
+  }
+
+  .song {
+    font-size: 1em; /* Slightly smaller text for song controls */
+  }
+}
+
+@media (max-width: 480px) {
+  .textCont {
+    font-size: 5vw; /* Larger adjustment for very small screens */
+    padding: 8px; /* Less padding */
+  }
+
+  .song {
+    font-size: 0.9em; /* Smaller controls */
+    bottom: 5%; /* Adjust position for small screens */
+  }
+}
+
+
+  </style>
+  <body>
+    <div class="textCont"></div>
+    <div class="song">
+      <div class="title"></div>
+      <div class="pause" onclick="togglePlay()">🔇</div>
+      <div class="player">
+        <audio
+          class="audio"
+          src="Ed-Sheeran-Perfect-(HipHopKit.com).mp3"
+          autoplay
+          type="audio"
+          loop=""
+        ></audio>
+      </div>
+    </div>
+    <script src="untoldcoding.js">const text = "Dear BestFriend ,  ";
+      const paragraph = text.split("");
+      
+      let i = 0;
+      
+      function dashOut(arr) {
+        if (i < arr.length) {
+          console.log(arr[i]);
+          document.querySelector(".textCont").textContent += arr[i];
+      
+          i++;
+          console.log("The i count: " + i);
+          // Increase the delay for a slower typing effect
+          setTimeout(function () {
+            dashOut(arr);
+          }, interval(arr[i]) + 200); // Added 200 ms to the existing interval
+        } else {
+          // Start clearing the text letter by letter
+          clearText(arr.length);
+        }
+      }
+      
+      function clearText(length) {
+        if (length > 0) {
+          const currentText = document.querySelector(".textCont").textContent;
+          document.querySelector(".textCont").textContent = currentText.slice(0, -1); // Remove the last letter
+          setTimeout(function () {
+            clearText(length - 1);
+          }, 100); // Adjust the speed of clearing
+        } else {
+          // After clearing, reset index and start over
+          i = 0;
+          setTimeout(function () {
+            dashOut(paragraph);
+          }, 1000); // Delay before starting over
+        }
+      }
+      
+      function interval(letter) {
+        console.log(letter);
+        if (letter === ";" || letter === "." || letter === ",") {
+          return Math.floor(Math.random() * 500 + 500);
+        } else {
+          return Math.floor(Math.random() * 130 + 5);
+        }
+      }
+      
+      function startFromBegin() {
+        i = 0;
+        dashOut(paragraph);
+      }
+      
+      startFromBegin();
+      </script>
+    <script>
+      var pause = document.querySelector(".pause");
+      var audio = document.querySelector(".audio");
+
+      function togglePlay() {
+        if (audio.paused) {
+          audio.play();
+          pause.innerHTML = "🔇";
+        } else {
+          audio.pause();
+          pause.innerHTML = "🔊";
+          pause.style.color = " #848484";
+        }
+      }
+    </script>
+  </body>
+</html>
